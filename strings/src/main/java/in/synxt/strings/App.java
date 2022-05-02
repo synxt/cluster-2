@@ -41,6 +41,15 @@ public class App {
 			System.out.println(words[i]);
 		}
 		
+		String sentence="   Vandhematharam Vandhematharam, Sujalam Suphlam Malayaja Seethalam   ";
+		System.out.println(sentence.lastIndexOf("lam"));
+		
+		System.out.println(sentence.replaceAll("lam", "laam"));
+		System.out.println(sentence);
+		System.err.println(sentence.substring(10,15));
+		System.out.println(sentence.trim());
+		String age = String.valueOf(10);
+		System.out.println(age);
 	}
 }
 
