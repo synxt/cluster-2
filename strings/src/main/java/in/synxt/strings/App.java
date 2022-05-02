@@ -50,6 +50,7 @@ public class App {
 		System.out.println(sentence.trim());
 		String age = String.valueOf(10);
 		System.out.println(age);
+		System.out.println("THE END");
 	}
 }
 
