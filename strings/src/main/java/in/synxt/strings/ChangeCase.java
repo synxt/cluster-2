@@ -9,10 +9,14 @@ public class ChangeCase {
 		String inputStr = sc.nextLine();
 		System.out.println("1)Lower Case \n 2)Uppercase");
 		int choice = Integer.parseInt(sc.nextLine());
-		if(choice == 1) {
-			inputStr = inputStr.toLowerCase();
+		if(choice == 1) { 
+			if(!inputStr.toLowerCase().equals(inputStr)){				
+				inputStr = inputStr.toLowerCase();
+			}
 		}else {
-			inputStr = inputStr.toUpperCase();
+			if(!inputStr.toUpperCase().equals(inputStr)){
+				inputStr = inputStr.toUpperCase();
+			}
 		}
 		System.out.println(inputStr);
 		System.out.println("THE END");
