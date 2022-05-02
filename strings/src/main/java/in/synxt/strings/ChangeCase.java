@@ -15,6 +15,6 @@ public class ChangeCase {
 			inputStr = inputStr.toUpperCase();
 		}
 		System.out.println(inputStr);
-		
+		System.out.println("THE END");
 	}
 }
