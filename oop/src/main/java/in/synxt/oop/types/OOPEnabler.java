@@ -39,5 +39,6 @@ public class OOPEnabler {
 				System.out.println("Total Marks"+(students[i].subjectOneMarks+students[i].subjectTwoMarks+students[i].subjectThreeMarks));
 			}
 		}
+		System.out.println("Simple Change");
 	}
 }
