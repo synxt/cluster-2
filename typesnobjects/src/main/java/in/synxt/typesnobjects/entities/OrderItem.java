@@ -1,13 +1,14 @@
 package in.synxt.typesnobjects.entities;
 
 public class OrderItem {
-	private int productId;
+	private Product product;
 	private int quantity;
-	public int getProductId() {
-		return productId;
+	
+	public Product getProduct() {
+		return product;
 	}
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	public int getQuantity() {
 		return quantity;

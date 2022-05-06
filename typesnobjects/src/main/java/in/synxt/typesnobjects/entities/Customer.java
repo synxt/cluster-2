@@ -5,7 +5,9 @@ public class Customer {
 	private String customerName;
 	private String phoneNumber;
 	private String address;
-
+	private String memeberShipCardNo;
+	private int rewardPoints;
+	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}

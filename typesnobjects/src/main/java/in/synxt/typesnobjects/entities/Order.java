@@ -7,6 +7,7 @@ public class Order {
 	private String deliveryMode;
 	private OrderItem[] items = new OrderItem[10];
 	private int noOfItems = 0;
+	private Payment payment;
 	public Order(int orderNo, String orderDate) {
 		super();
 		this.orderNo = orderNo;
@@ -32,6 +33,12 @@ public class Order {
 	}
 	public void setItems(OrderItem[] items) {
 		this.items = items;
+	}
+	public Payment getPayment() {
+		return payment;
+	}
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 	
 }

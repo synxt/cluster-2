@@ -5,6 +5,7 @@ import in.synxt.typesnobjects.entities.Order;
 import in.synxt.typesnobjects.entities.OrderItem;
 import in.synxt.typesnobjects.entities.Product;
 import in.synxt.typesnobjects.entities.Shop;
+import in.synxt.typesnobjects.entities.UPIPayment;
 
 public class App {
 	public static void main(String[] args) {
@@ -32,7 +33,8 @@ public class App {
 		productThree.setPurchasePrice(75);
 		productThree.setSalePrice(75);
 		productThree.setStockInHand(10);
-
+		
+	
 		shop.getProducts()[0] = productOne;
 		shop.getProducts()[1] = productTwo;
 		shop.getProducts()[2] = productThree;
@@ -55,26 +57,29 @@ public class App {
 		shop.getEmployees()[1] = empTwo;
 
 		Order orderOne = new Order(1,"01-Apr-2022");
-
+		
 		OrderItem itemOne = new OrderItem();
-		itemOne.setProductId(1);
+		itemOne.setProduct(productOne);
 		itemOne.setQuantity(4);
 
 		OrderItem itemTwo = new OrderItem();
-		itemOne.setProductId(3);
+		itemOne.setProduct(productThree);
 		itemOne.setQuantity(1);
 
 		orderOne.getItems()[0] = itemOne;
 		orderOne.getItems()[1] = itemTwo;
 
+		UPIPayment upiPayment = new UPIPayment("99666@ybl", 250);
+		orderOne.setPayment(upiPayment);
+			
 		Order orderTwo = new Order(2,"02-Apr-2022");
 
 		OrderItem itemThree = new OrderItem();
-		itemThree.setProductId(1);
+		itemThree.setProduct(productOne);
 		itemThree.setQuantity(5);
 
 		OrderItem itemFour = new OrderItem();
-		itemFour.setProductId(2);
+		itemFour.setProduct(productTwo);
 		itemFour.setQuantity(2);
 
 		orderTwo.getItems()[0] = itemThree;
@@ -83,11 +88,13 @@ public class App {
 		shop.getOrders()[0] = orderOne;
 		shop.getOrders()[1] = orderTwo;
 		double totalOrderValue = 0;
+		
 		for (OrderItem item : orderTwo.getItems()) {
 			if (item != null) {
-				totalOrderValue += shop.getProducts()[item.getProductId() - 1].getSalePrice() * item.getQuantity();
+				totalOrderValue += item.getProduct().getSalePrice() * item.getQuantity();
 			}
 		}
+		
 		System.out.println(totalOrderValue);
 
 	}
