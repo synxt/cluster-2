@@ -3,6 +3,7 @@ package in.synxt.typesnobjects.entities;
 public class Payment {
 	private String status;
 	private double amount;	
+	private int pin;
 	public Payment(double amount) {
 		super();
 		this.amount = amount;
