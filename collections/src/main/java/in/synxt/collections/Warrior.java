@@ -54,6 +54,6 @@ public class Warrior implements Comparable<Warrior>{
 	}
 	@Override
 	public int compareTo(Warrior that) {
-		return this.wealth.compareTo(that.wealth);
+		return this.name.compareTo(that.name);
 	}		
 }
