@@ -14,7 +14,7 @@ CREATE TABLE sy_users(
 SELECT * FROM sy_users;
 
 
-INSERT INTO sy_users VALUES(1,'Seetha','seetha999','seetha@synxt.in','9966681878','Naidupet','seetha999@123','01-OCT-1995','A Programmer')
+INSERT INTO sy_users VALUES(1,'Seetha','seetha999','seetha@synxt.in','9966681878','Naidupet','seetha999@123','01-OCT-1995','A Programmer');
 INSERT INTO sy_users VALUES(2,'Geetha','geetha123','geetha@synxt.in','8189878945','Nellore','geetha123@123','10-JAN-2000','A Learner');
 INSERT INTO sy_users VALUES(3,'Latha','latha123','latha@synxt.in','9874563210','Naidupet','latha@123','10-JAN-1990','A Manager');
 INSERT INTO sy_users VALUES(4,'Sujatha','sujatha123','sujatha@synxt.in','','Naidupet','sujatha@123','10-JAN-1990','A Nationalist');
@@ -59,6 +59,5 @@ CREATE TABLE sy_users_temp(
 DROP TABLE sy_users_temp;
 ALTER TABLE sy_users RENAME COLUMN date_fo_birth TO date_of_birth;
 ALTER TABLE sy_users ADD STATUS VARCHAR(512) DEFAULT 'I am alive';
-ALTER TABLE sy_users DROP COLUMN STATUS;
 ALTER TABLE sy_users MODIFY STATUS VARCHAR(256);
-
+ALTER TABLE sy_users DROP COLUMN STATUS;
