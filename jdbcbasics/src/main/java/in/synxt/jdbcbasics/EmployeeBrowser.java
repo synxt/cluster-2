@@ -1,20 +1,114 @@
 package in.synxt.jdbcbasics;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 public class EmployeeBrowser {
+	final String findEmployeeById = "SELECT employee_id eid,employee_name,employee_salary,department_id FROM test_employess WHERE employee_id=?";
+	final String findEmployeeByName = "SELECT employee_id eid,employee_name,employee_salary,department_id FROM test_employess WHERE employee_name=?";
+	final String hikeSalary = "UPDATE test_employess SET employee_salary=employee_salary+? WHERE employee_id=?";
+	
 	public void printAllEmployees() throws SQLException {
+		
 		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cluster1", "postgres", "Open123$");
+		
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT employee_id,employee_name,employee_salary,department_id FROM employees");
+		
+		ResultSet rs = stmt.executeQuery("SELECT employee_id eid,employee_name,employee_salary,department_id FROM test_employess=");
+		
 		while(rs.next()) {
-			System.out.println(rs.getInt("employee_id") +"<---->"+ rs.getString("employee_name") 
+			System.out.println(rs.getInt("eid") +"<---->"+ rs.getString("employee_name") 
 												+"<---->"+ rs.getDouble("employee_salary") +"<---->"+ rs.getInt("department_id"));				
-		}			
+		}
+		
 		conn.close();
+	}
+	
+	public void printEmployee(int empId) throws SQLException {
+		
+		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cluster1", "postgres", "Open123$");
+		PreparedStatement stmt = conn.prepareStatement(findEmployeeById);
+		stmt.setInt(1, empId);
+				
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			System.out.println(rs.getInt("eid") +"<---->"+ rs.getString("employee_name") 
+												+"<---->"+ rs.getDouble("employee_salary") +"<---->"+ rs.getInt("department_id"));				
+		}
+		
+		conn.close();
+	}
+	
+	public void printEmployeeByName(String empName) throws SQLException {
+		
+		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cluster1", "postgres", "Open123$");
+		PreparedStatement stmt = conn.prepareStatement(findEmployeeByName);
+		stmt.setString(1, empName);
+				
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			System.out.println(rs.getInt("eid") +"<---->"+ rs.getString("employee_name") 
+												+"<---->"+ rs.getDouble("employee_salary") +"<---->"+ rs.getInt("department_id"));				
+		}
+		
+		conn.close();
+	}
+	
+
+	public void hikeSalaryByToEmployeeById(double hikeAmount, int employeeId) throws SQLException {
+		
+		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cluster1", "postgres", "Open123$");
+		PreparedStatement stmt = conn.prepareStatement(hikeSalary);
+		stmt.setDouble(1, hikeAmount);
+		stmt.setInt(2, employeeId);
+				
+		int count = stmt.executeUpdate();
+		
+		System.out.println(count+" rows updated");
+		
+		conn.close();
+	}
+	
+	public String getNameById(int employeeId) throws SQLException {
+		
+		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cluster1", "postgres", "Open123$");
+		CallableStatement stmt = conn.prepareCall("{?=call GET_EMP_NAME(?)}");
+		
+		stmt.registerOutParameter(1, Types.VARCHAR);
+		stmt.setInt(2, employeeId);
+		stmt.execute();
+		String empName = stmt.getString(1);
+		
+		conn.close();
+		
+		return empName;
+	}
+	
+	public void getEmployeesByDeptId(int departmentId) throws SQLException {
+		
+		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cluster1", "postgres",
+				"Open123$");
+		conn.setAutoCommit(false);
+		CallableStatement stmt = conn.prepareCall("{?=call GET_ALL_EMPSBYDEPTID(?)}");
+
+		stmt.registerOutParameter(1, Types.OTHER);
+		stmt.setInt(2, departmentId);
+		stmt.execute();
+		ResultSet rows = (ResultSet) stmt.getObject(1);
+
+		while (rows.next()) {
+			System.out.println(rows.getInt("employee_id") + "<----->" + rows.getString("employee_name") + "<----->"
+					+ rows.getInt("department_id"));
+		}
+ 
+		conn.close();			
 	}
 }
