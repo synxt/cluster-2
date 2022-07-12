@@ -25,6 +25,7 @@ public class App {
 		 * empBrowser.printEmployeeByName(empName);
 		 */
 		//System.out.println(empBrowser.getNameById(10));
-		empBrowser.getEmployeesByDeptId(1);
+		//empBrowser.getEmpsByDeptId(1);
+		System.out.println(empBrowser.createEmployee("AUTO CREATED", 12000000));
 	}
 }
