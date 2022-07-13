@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.sun.rowset.internal.Row;
 
@@ -153,16 +156,75 @@ public class EmployeeBrowser {
 	}
 	
 	
-public int createEmployee(String empName,double salary ) throws SQLException {
+	public int createEmployee(String empName,double salary ) throws SQLException {
+			
+			Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cluster1", "postgres",
+					"Open123$");
+			PreparedStatement stmt = conn.prepareStatement("INSERT INTO employees(employee_name,employee_salary) VALUES(?,?)",1);
+			stmt.setString(1, empName);
+			stmt.setDouble(2, salary);
+			stmt.executeUpdate();
+			ResultSet keys= stmt.getGeneratedKeys();		
+			keys.next();
+			return keys.getInt("employee_id");						
+	}
+	
+	public void transfer(double amount,int from,int to) throws SQLException {
 		
 		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cluster1", "postgres",
 				"Open123$");
-		PreparedStatement stmt = conn.prepareStatement("INSERT INTO employees(employee_name,employee_salary) VALUES(?,?)",1);
-		stmt.setString(1, empName);
-		stmt.setDouble(2, salary);
-		stmt.executeUpdate();
-		ResultSet keys= stmt.getGeneratedKeys();		
-		keys.next();
-		return keys.getInt("employee_id");						
+		conn.setAutoCommit(true);
+		PreparedStatement stmt = conn.prepareStatement("SELECT account_no FROM account WHERE account_no IN (?,?)");
+		stmt.setInt(1, from);
+		stmt.setInt(2, to);
+		
+		ResultSet rs = stmt.executeQuery();
+		Set<Integer> availableAccounts = new HashSet<Integer>();
+		while(rs.next()) {
+			availableAccounts.add(rs.getInt("account_no"));
+		}
+		
+		if(availableAccounts.contains(from)) {
+			stmt = conn.prepareStatement("UPDATE account SET account_balance=account_balance-? WHERE account_no=?");
+			stmt.setDouble(1, amount);
+			stmt.setInt(2, from);
+			stmt.executeUpdate();
+			if(availableAccounts.contains(to)) {
+				stmt = conn.prepareStatement("UPDATE account SET account_balance=account_balance+? WHERE account_no=?");
+				stmt.setDouble(1, amount);
+				stmt.setInt(2, to);
+				stmt.executeUpdate();
+				conn.commit();
+			}else {
+				conn.rollback();
+			}
+			
+		}
 	}
+	
+	public int[] batchInsert(List<Account> accounts) throws SQLException {
+		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cluster1", "postgres","Open123$");
+		Statement stmt = conn.createStatement();
+		for(Account acc:accounts) {
+			stmt.addBatch(String.format("INSERT INTO account(account_name,account_balance) VALUES('%s',%f)",acc.getAccountName(),acc.getAccountBalance()));
+		}
+		int[] results = stmt.executeBatch();
+		
+		return results;
+	}
+	
+	public int[] batchPreparedInsert(List<Account> accounts) throws SQLException {
+		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cluster1", "postgres","Open123$");
+		PreparedStatement stmt = conn.prepareStatement("INSERT INTO account(account_name,account_balance) VALUES(?,?)");
+		for(Account acc:accounts) {
+			stmt.setString(1, acc.getAccountName());
+			stmt.setDouble(2,acc.getAccountBalance());
+			stmt.addBatch();
+			stmt.clearParameters();
+		}
+		int[] results = stmt.executeBatch();
+		
+		return results;
+	}
+
 }
