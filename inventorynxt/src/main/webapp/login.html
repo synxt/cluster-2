@@ -1,7 +1,6 @@
 <html>
 	<head>
 		<title>Next Gen Inventory</title>
-		<link rel="icon" type="image/x-icon" href="/inventorynxt/favicon.ico">
 		<style>
 			#title_hldr{
 			  width:100%;
@@ -37,37 +36,25 @@
 	</head>
 	<body>
 		<div id="title_hldr">
-		    <span id="title_txt">Register Product</span>	
+		    <span id="title_txt">Login</span>	
 		</div>
 		<div id="form_hldr">
-			<form action="register" method="post">
+			<form action="login" method="post">
 				<div class="input_cntr">
-					<span class="label_txt">Product Name:</span>
+					<span class="label_txt">Username:</span>
 					<span class="input_hldr">
-						<input type="text" name="name"/>
+						<input type="text" name="username"/>
 					</span>
 				</div>
 				<div class="input_cntr">
-					<span class="label_txt">Product Category:</span>
+					<span class="label_txt">Password:</span>
 					<span class="input_hldr">
-						<input type="text" name="category"/>
+						<input type="password" name="password"/>
 					</span>
-				</div>
-				<div class="input_cntr">
-					<span class="label_txt">Product Price:</span>
-					<span class="input_hldr">
-						<input type="text" name="price"/>
-					</span>
-				</div>
-				<div class="input_cntr">
-					<span class="label_txt">Product Quantity In Hand:</span>
-					<span class="input_hldr">
-						<input type="text" name="inHandQuantity"/>
-					</span>
-				</div>
+				</div>				
 				<div class="input_cntr">
 					<span class="input_hldr">
-						<input type="submit" value="Register"/>
+						<input type="submit" value="Login"/>
 					</span>
 				</div>
 			</form>
