@@ -27,6 +27,7 @@ public class ProductBrowserServlet extends HttpServlet {
 		
 		String tableTemplete="<html>\r\n"
 				+ "	<body>\r\n"
+				+ "<h1>New product registered with id: %d</h1>"
 				+ "		<table border=1 style=\"border-collapse:collapse\">\r\n"
 				+ "			<tr>\r\n"
 				+ "				<th>Product Name</th>\r\n"
@@ -44,7 +45,8 @@ public class ProductBrowserServlet extends HttpServlet {
 			for(ProductModel model:products) {
 				sb.append(String.format(rowTemplate, model.getName(),model.getCategory(),model.getPrice(),model.getQuantityInHand()));
 			}
-			String responseTxt=String.format(tableTemplete, sb.toString());
+			int generatedId = (int)request.getAttribute("ProdId");
+			String responseTxt=String.format(tableTemplete,generatedId, sb.toString());
 			response.getWriter().println(responseTxt);
 		}catch(SQLException ex) {
 			ex.printStackTrace();

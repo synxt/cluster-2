@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import in.synxt.inventorynxt.dao.UserDao;
 import in.synxt.inventorynxt.dao.UserDaoImpl;
@@ -90,7 +92,7 @@ public class LoginValidatorServlet extends HttpServlet {
 				+ "				</div>\n"
 				+ "				<div class=\"input_cntr\">\n"				
 				+ "					<span class=\"input_hldr\">\n"
-				+ "						<input type=\"hidden\" name=\"username\" value=\""+userModel.getUsername()+"\"/>\n"
+				//+ "						<input type=\"hidden\" name=\"username\" value=\""+userModel.getUsername()+"\"/>\n"
 				+ "					</span>\n"
 				+ "				</div>\n"
 				+ "				<div class=\"input_cntr\">\n"
@@ -109,6 +111,10 @@ public class LoginValidatorServlet extends HttpServlet {
 			
 			if (userModel.isEnabled()) {
 				response.getWriter().println(successString);
+				HttpSession session = request.getSession(true);
+				session.setAttribute("username", request.getParameter("username"));
+				Cookie usernameCookie = new Cookie("username", request.getParameter("username"));
+				response.addCookie(usernameCookie);
 			}else {
 				String failureString = "<html>\n"
 						+ "	<head>\n"

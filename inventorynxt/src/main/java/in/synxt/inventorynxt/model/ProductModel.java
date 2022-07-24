@@ -6,18 +6,19 @@ public class ProductModel {
 	private String category;
 	private Double price;
 	private Integer quantityInHand;
-	
+	private String registeredBy;
 	public ProductModel() {
 		super();
 	}
 	
-	public ProductModel(Integer id, String name, String category, Double price, Integer quantityInHand) {
+	public ProductModel(Integer id, String name, String category, Double price, Integer quantityInHand,String registeredBy) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.category = category;
 		this.price = price;
 		this.quantityInHand = quantityInHand;
+		this.registeredBy = registeredBy;
 	}
 	
 	public Integer getId() {
@@ -50,10 +51,16 @@ public class ProductModel {
 	public void setQuantityInHand(Integer quantityInHand) {
 		this.quantityInHand = quantityInHand;
 	}
+	
+	public String getRegisteredBy() {
+		return registeredBy;
+	}
+	public void setRegisteredBy(String registeredBy) {
+		this.registeredBy = registeredBy;
+	}
 	@Override
 	public String toString() {
 		return "ProductModel [id=" + id + ", name=" + name + ", category=" + category + ", price=" + price
-				+ ", quantityInHand=" + quantityInHand + "]";
+				+ ", quantityInHand=" + quantityInHand + ", registeredBy=" + registeredBy + "]";
 	}
-	
 }

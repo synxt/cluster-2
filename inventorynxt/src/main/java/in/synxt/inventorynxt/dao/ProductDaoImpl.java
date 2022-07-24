@@ -20,12 +20,13 @@ public class ProductDaoImpl implements ProductDao {
 
 		try {
 			conn = DatabaseUtility.getConnection();
-			String insertProduct = "INSERT INTO products (id,name,category,price,quantity_in_hand) VALUES(SEQ_PROD.nextval,?,?,?,?)";
+			String insertProduct = "INSERT INTO products (id,name,category,price,quantity_in_hand,registeredby) VALUES(SEQ_PROD.nextval,?,?,?,?,?)";
 			PreparedStatement stmt = conn.prepareStatement(insertProduct);
 			stmt.setString(1, model.getName());
 			stmt.setString(2, model.getCategory());
 			stmt.setDouble(3, model.getPrice());
 			stmt.setInt(4, model.getQuantityInHand());
+			stmt.setString(5, model.getRegisteredBy());
 			stmt.executeUpdate();
 			String retriveKeys = "SELECT SEQ_PROD.currval as id FROM DUAL";
 			ResultSet rs = conn.prepareStatement(retriveKeys).executeQuery();
@@ -38,7 +39,6 @@ public class ProductDaoImpl implements ProductDao {
 				conn.close();
 			}
 		}
-
 	}
 
 	@Override
@@ -47,11 +47,11 @@ public class ProductDaoImpl implements ProductDao {
 		List<ProductModel> products = new ArrayList<>();	
 		try {
 			conn = DatabaseUtility.getConnection();
-			PreparedStatement stmt = conn.prepareStatement("SELECT id,name,category,price,quantity_in_hand FROM products");
+			PreparedStatement stmt = conn.prepareStatement("SELECT id,name,category,price,quantity_in_hand,registeredby FROM products");
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				products.add(new ProductModel(rs.getInt("id"),rs.getString("name"), rs.getString("category"), rs.getDouble("price"), rs.getInt("quantity_in_hand")));
+				products.add(new ProductModel(rs.getInt("id"),rs.getString("name"), rs.getString("category"), rs.getDouble("price"), rs.getInt("quantity_in_hand"),rs.getString("registeredby")));
 			}
 			return products;
 		} catch (SQLException | ClassNotFoundException ex) {
