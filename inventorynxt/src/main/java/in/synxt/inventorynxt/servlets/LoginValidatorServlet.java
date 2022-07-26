@@ -113,8 +113,9 @@ public class LoginValidatorServlet extends HttpServlet {
 				response.getWriter().println(successString);
 				HttpSession session = request.getSession(true);
 				session.setAttribute("username", request.getParameter("username"));
-				Cookie usernameCookie = new Cookie("username", request.getParameter("username"));
+				Cookie usernameCookie = new Cookie("username", request.getParameter("username"));				
 				response.addCookie(usernameCookie);
+				session.setMaxInactiveInterval(30);
 			}else {
 				String failureString = "<html>\n"
 						+ "	<head>\n"

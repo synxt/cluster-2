@@ -54,7 +54,7 @@ public class RegisterProductServlet extends HttpServlet {
 				int generatedId = dao.registerProduct(product);
 				request.setAttribute("ProdId", generatedId);			
 				RequestDispatcher dispatcher = request.getRequestDispatcher("showproducts");
-				dispatcher.forward(request, response);						
+				dispatcher.forward(request, response);				
 			}catch(SQLException ex) {
 				ex.printStackTrace();
 				out.println("Product coudn't be registered");

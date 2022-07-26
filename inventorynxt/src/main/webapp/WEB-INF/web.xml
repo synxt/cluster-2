@@ -4,6 +4,13 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <filter>
+  	<filter-name>LoginValidatorFilter</filter-name>
+  	<display-name>LoginValidatorFilter</display-name>
+  	<description></description>
+  	<filter-class>in.synxt.inventorynxt.filters.LoginValidatorFilter</filter-class>
+  </filter>
+  
   <servlet>
   	<servlet-name>RegisterProductServlet</servlet-name>
   	<display-name>RegisterProductServlet</display-name>
@@ -34,6 +41,14 @@
   	<servlet-name>ProductBrowserServlet</servlet-name>
   	<url-pattern>/showproducts</url-pattern>
   </servlet-mapping>
+  <filter-mapping>
+  	<filter-name>LoginValidatorFilter</filter-name>
+  	<url-pattern>/register</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>LoginValidatorFilter</filter-name>
+  	<url-pattern>/showproducts</url-pattern>
+  </filter-mapping>
   <welcome-file-list>
   		<welcome-file>login.html</welcome-file>
   </welcome-file-list>
