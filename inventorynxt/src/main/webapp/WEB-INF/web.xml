@@ -10,6 +10,18 @@
   	<description></description>
   	<filter-class>in.synxt.inventorynxt.filters.LoginValidatorFilter</filter-class>
   </filter>
+  <listener>
+  	<listener-class>in.synxt.inventorynxt.listeners.ContextListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>in.synxt.inventorynxt.listeners.RequestListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>in.synxt.inventorynxt.listeners.SessionListener</listener-class>
+  </listener>
+  <listener>
+  	<listener-class>in.synxt.inventorynxt.listeners.RequestAttributeListener</listener-class>
+  </listener>
   
   <servlet>
   	<servlet-name>RegisterProductServlet</servlet-name>

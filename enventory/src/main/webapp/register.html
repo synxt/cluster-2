@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<title>Next Gen Inventory</title>
+		<link rel="icon" type="image/x-icon" href="/inventorynxt/favicon.ico">
+		<style>
+			#title_hldr{
+			  width:100%;
+			  color:purple;
+			  font-size:30px;  
+			}
+			#title_txt{
+			  display: inline-block;
+			  margin-left:40%  
+			}
+			.input_cntr .label_txt{
+			  display: inline-block;
+			  width: 250px;
+			  margin-left: 30%;
+			  margin-top: 20px;
+			  color:navy;
+			}
+			.input_cntr input[type='submit']{
+			  width:250px;
+			  height:40px;
+			  margin-top: 25px;
+			  margin-left: 40%;
+			  background-color:white;
+			  border: 1px solid green;
+			  color:green;
+			  font-size:16px;
+			}
+			.input_cntr input[type='submit']:hover{
+			  color:white;
+			  background-color:green;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="title_hldr">
+		    <span id="title_txt">Register Product</span>	
+		</div>
+		<div id="form_hldr">
+			<form action="register.jsp" method="post">
+				<div class="input_cntr">
+					<span class="label_txt">Product Name:</span>
+					<span class="input_hldr">
+						<input type="text" name="name"/>
+					</span>
+				</div>
+				<div class="input_cntr">
+					<span class="label_txt">Product Category:</span>
+					<span class="input_hldr">
+						<input type="text" name="category"/>
+					</span>
+				</div>
+				<div class="input_cntr">
+					<span class="label_txt">Product Price:</span>
+					<span class="input_hldr">
+						<input type="text" name="price"/>
+					</span>
+				</div>
+				<div class="input_cntr">
+					<span class="label_txt">Product Quantity In Hand:</span>
+					<span class="input_hldr">
+						<input type="text" name="inHandQuantity"/>
+					</span>
+				</div>
+				<div class="input_cntr">
+					<span class="input_hldr">
+						<input type="submit" value="Register"/>
+					</span>
+				</div>
+			</form>
+		</div>
+	</body>	
+</html>
