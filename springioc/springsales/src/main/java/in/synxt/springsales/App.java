@@ -13,6 +13,7 @@ public class App {
 	public static void main(String[] args) throws Exception {
 		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		ProductService productService = context.getBean("productService",ProductService.class);
+		System.out.println(productService);
 		List<Product> products = productService.getAllProducts();
 		System.out.println("Please choose a product");
 		int choice = 0;

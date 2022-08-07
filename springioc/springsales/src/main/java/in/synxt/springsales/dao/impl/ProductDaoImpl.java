@@ -9,12 +9,18 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import in.synxt.springsales.dao.ProductDao;
-import in.synxt.springsales.dao.utils.DBCP;
-import in.synxt.springsales.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
+import in.synxt.springsales.dao.ProductDao;
+import in.synxt.springsales.model.Product;
+@Repository("dbDao")
+//@Primary
+@Profile("prod")
 public class ProductDaoImpl implements ProductDao{
-	private static DataSource datasource = DBCP.getDataSource();
+	@Autowired
+	private DataSource datasource;
 	@Override
 	public List<Product> getAllProducts() throws SQLException {	
 		List<Product> products = new ArrayList<>();
