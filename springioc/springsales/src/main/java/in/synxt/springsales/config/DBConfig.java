@@ -3,6 +3,8 @@ package in.synxt.springsales.config;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,4 +22,8 @@ public class DBConfig {
 		dataSource.setInitialSize(5);
 		return dataSource;
 	}
+	@Bean
+	public Logger logger() {
+		return LogManager.getLogger("in.synxt.springsales");
+	} 
 }
