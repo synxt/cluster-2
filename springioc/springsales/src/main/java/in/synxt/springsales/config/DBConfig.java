@@ -8,9 +8,12 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import in.synxt.springsales.aspects.Loggable;
+
 @Configuration
 public class DBConfig {
 	@Bean("dataSource")
+	@Loggable
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");

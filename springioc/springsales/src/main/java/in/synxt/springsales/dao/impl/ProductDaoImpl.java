@@ -11,9 +11,11 @@ import javax.sql.DataSource;
 
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
+import in.synxt.springsales.aspects.Loggable;
 import in.synxt.springsales.dao.ProductDao;
 import in.synxt.springsales.model.Product;
 @Repository("dbDao")
@@ -21,12 +23,13 @@ import in.synxt.springsales.model.Product;
 @Profile("prod")
 public class ProductDaoImpl implements ProductDao{
 	@Autowired
+	@Qualifier("dataSource")
 	private DataSource datasource;
 	@Autowired
 	private Logger logger;
 	@Override
+	@Loggable
 	public List<Product> getAllProducts() throws SQLException {	
-		logger.traceEntry();
 		List<Product> products = new ArrayList<>();
 		try {
 			Connection conn = datasource.getConnection();
@@ -39,7 +42,6 @@ public class ProductDaoImpl implements ProductDao{
 			logger.error("Dao",ex);
 			throw ex;
 		}
-		logger.traceExit();
 		return products;
 	}
 	

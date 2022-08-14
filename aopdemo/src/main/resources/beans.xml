@@ -5,9 +5,8 @@
 	xmlns:aop="http://www.springframework.org/schema/aop" 
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
-	<context:component-scan base-package="in.synxt.springsales"></context:component-scan>
+	<context:component-scan base-package="in.synxt.aopdemo"></context:component-scan>
 	<aop:aspectj-autoproxy/>
 </beans>
